@@ -15,7 +15,9 @@ public enum ImpulseSounds
     HIT3,
     DIE,
     THROW,
-    GEM
+    GEM,
+    GROW,
+    SHRINK
 }
 
 public class PlayerBehaviour : MonoBehaviour
@@ -70,7 +72,8 @@ public class PlayerBehaviour : MonoBehaviour
     private SpriteRenderer m_spriteRenderer;
     private Animator m_animator;
     private RaycastHit2D groundHit;
-    
+
+    public bool growPlayed = false, shrinkPlayed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -285,6 +288,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Floating Platform"))
         {
             other.gameObject.GetComponent<FloatingPlatformController>().isActive = true;
+            //transform.SetParent(other.gameObject.transform);
+
+            sounds[(int)ImpulseSounds.SHRINK].Play();
             
         }
     }
@@ -294,12 +300,17 @@ public class PlayerBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Moving Platform"))
         {
             other.gameObject.GetComponent<MovingPlatformController>().isActive = false;
+
             transform.SetParent(parent);
         }
+
         if (other.gameObject.CompareTag("Floating Platform"))
         {
             other.gameObject.GetComponent<FloatingPlatformController>().isActive = false;
-            other.gameObject.GetComponent<FloatingPlatformController>().Reset();
+            //transform.SetParent(parent);
+            sounds[(int)ImpulseSounds.GROW].Play();
+            
+
 
         }
     }
