@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
 
     [Header("Moving Platforms")] 
     public List<MovingPlatformController> movingPlatforms;
+    [Header("Floating Platforms")]
+    public List<FloatingPlatformController> Floating;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,11 @@ public class GameController : MonoBehaviour
 
     public void ResetAllPlatforms()
     {
+        foreach (var platform in movingPlatforms)
+        {
+            platform.Reset();
+        }
+
         foreach (var platform in movingPlatforms)
         {
             platform.Reset();
