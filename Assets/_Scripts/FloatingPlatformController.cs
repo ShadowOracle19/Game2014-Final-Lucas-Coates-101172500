@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿/*
+ *File name: FloatPlatformController.cs
+ *Name: Lucas Coates
+ *Student ID: 101172500
+ *Last modified: 12/15/2020
+ *description: grows and shrinks a platform
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,11 +44,11 @@ public class FloatingPlatformController : MonoBehaviour
         if (isActive)
         {
             
-            _Shrink();
+            _Shrink();//shirnks platform
         }
         else
         {
-            _Reset();
+            _Grow();//grows platform back to regular size
         }
     }
 
@@ -48,18 +56,18 @@ public class FloatingPlatformController : MonoBehaviour
     {
         if (transform.localScale.x > 0.01f || transform.localScale.y > 0.01f)
         {
-            transform.localScale = new Vector3(transform.localScale.x * 0.999f, transform.localScale.y * 0.999f, transform.localScale.z);
+            transform.localScale = new Vector3(transform.localScale.x * 0.999f, transform.localScale.y * 0.999f, transform.localScale.z);//called every frame
         }
     }
 
-    public void _Reset()
+    public void _Grow()
     {
         if (transform.localScale.x < 1.0f || transform.localScale.y < 1.0f)
         {
             transform.localScale = new Vector3(transform.localScale.x * 1.01f, transform.localScale.y * 1.01f, transform.localScale.z);
         }
     }
-    private void _Move()
+    private void _Move()//moves platform up and down to make floaty effect
     {
         var distanceX = (distance.x > 0) ? start.position.x + Mathf.PingPong(platformTimer, distance.x) : start.position.x;
         var distanceY = (distance.y > 0) ? start.position.y + Mathf.PingPong(platformTimer, distance.y) : start.position.y;
